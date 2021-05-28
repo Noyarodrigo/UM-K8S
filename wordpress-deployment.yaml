@@ -1,16 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
+#informacion del deployment
 metadata:
   name: wordpress-deployment
   labels:
     component: wordpress
+#spec -> estado deseado, se compara el status y se lo trata de llevar a lo
+#especificado en el spec
 spec:
+  #crea 2 pods
   replicas: 2
+  #matchea con otros objetos que tengan ese label
   selector:
     matchLabels:
       component: wordpress
   strategy:
       type: RollingUpdate
+      rollingUpdate:
+           maxSurge: 2
+           maxUnavailable: 0
   template:
     metadata:
       labels:
