@@ -18,14 +18,14 @@ spec:
       type: RollingUpdate
       rollingUpdate:
            maxSurge: 2
-           maxUnavailable: 0
+           maxUnavailable: 2
   template:
     metadata:
       labels:
         component: wordpress
     spec:
       containers:
-        - image: wordpress:4.8-apache
+        - image: wordpress:5.7.2-apache
           name: wordpress
           env:
           - name: WORDPRESS_DB_HOST
@@ -36,5 +36,13 @@ spec:
                 name: mysql-pass
                 key: password
           ports:
-          - containerPort: 8080
+          - containerPort: 80
             name: wordpress
+          readinessProbe:
+            httpGet:
+              path: /wp-includes/images/blank.gif
+              port: 80
+            periodSeconds: 100
+            timeoutSeconds: 100
+            successThreshold: 1
+            failureThreshold: 10
