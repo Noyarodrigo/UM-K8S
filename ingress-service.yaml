@@ -4,14 +4,15 @@ metadata:
   name: ingress-service
   annotations:
     kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: "app-ip"
 spec:
   rules:
-    - http:
-        paths:
-          - path: /*
-            pathType: Prefix
-            backend:
-              service:
-                name: wordpress-nodeport-service
-                port:
-                  number: 80
+  - http:
+      paths:
+        - path: /*
+          pathType: Prefix
+          backend:
+            service:
+              name: wordpress-nodeport-service
+              port:
+                number: 80
