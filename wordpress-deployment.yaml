@@ -25,7 +25,7 @@ spec:
         component: wordpress
     spec:
       containers:
-        - image: wordpress:5.7.2-apache
+        - image: wordpress:4.8-apache
           name: wordpress
           env:
           - name: WORDPRESS_DB_HOST
